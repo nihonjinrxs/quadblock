@@ -14,6 +14,10 @@ defmodule Tetris.Tetromino do
   def down(%{location: loc}=tetro), do: %{tetro | location: Point.down(loc)}
   def rotate(%{rotation: rot}=tetro), do: %{tetro | rotation: rotate_degrees(rot)}
 
+  def points(tetro) do
+    [tetro.location]
+  end
+
   defp random_shape, do: @shapes |> Enum.random
   defp random_rotation, do: @rotations |> Enum.random
   defp rotate_degrees(270), do: 0
