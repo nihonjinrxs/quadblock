@@ -17,14 +17,12 @@ defmodule TetrisWeb.GameLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <% [{x, y}] = @points %>
     <section class="phx-hero">
       <h1>Quadblock Tetris</h1>
       <%= render_board(assigns) %>
       <pre>
-        Shape <%= inspect @tetro.shape %>
-        <%= @tetro.rotation %> degrees
-        {<%= x %>, <%= y %>}
+        @tetro = <%= inspect @tetro %>
+        @points = <%= inspect @points %>
       </pre>
     </section>
     """
@@ -38,7 +36,7 @@ defmodule TetrisWeb.GameLive do
     assign(socket,
       points:
         socket.assigns.tetro
-        |> Tetromino.points()
+        |> Tetromino.show()
     )
   end
 
@@ -51,13 +49,15 @@ defmodule TetrisWeb.GameLive do
     """
   end
 
-  defp render_points(%{points: [{x, y}]}=assigns) do
+  defp render_points(assigns) do
     ~L"""
-    <rect
-      width="20" height="20"
-      x="<%= (x - 1) * 20 %>" y="<%= (y - 1) * 20 %>"
-      style="fill:rgb(255,0,0)"
-    />
+    <%= for {x, y} <- @points do %>
+      <rect
+        width="20" height="20"
+        x="<%= (x - 1) * 20 %>" y="<%= (y - 1) * 20 %>"
+        style="fill:rgb(255,0,0)"
+      />
+    <% end %>
     """
   end
 
