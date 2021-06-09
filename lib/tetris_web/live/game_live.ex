@@ -3,6 +3,8 @@ defmodule TetrisWeb.GameLive do
 
   alias Tetris.Tetromino
 
+  @rotate_keys ["ArrowUp", " "]
+
   @impl true
   def mount(_params, _session, socket) do
     if connected?(socket) do
@@ -20,12 +22,14 @@ defmodule TetrisWeb.GameLive do
   def render(assigns) do
     ~L"""
     <section class="phx-hero">
-      <h1>Quadblock Tetris</h1>
-      <%= render_board(assigns) %>
-      <pre>
-        @tetro = <%= inspect @tetro %>
-        @points = <%= inspect @points %>
-      </pre>
+      <div phx-window-keydown="keystroke">
+        <h1>Quadblock Tetris</h1>
+        <%= render_board(assigns) %>
+        <pre>
+          @tetro = <%= inspect @tetro %>
+          @points = <%= inspect @points %>
+        </pre>
+      </div>
     </section>
     """
   end
@@ -74,7 +78,24 @@ defmodule TetrisWeb.GameLive do
 
   @impl true
   def handle_info(:tick, socket) do
-    {:noreply, socket |> down |> rotate |> show}
+    {:noreply, socket |> down |> show}
+  end
+
+  @impl true
+  def handle_event("keystroke", %{"key" => key}, socket) when key in @rotate_keys do
+    {:noreply, socket |> rotate |> show}
+  end
+  def handle_event("keystroke", %{"key" => "ArrowLeft"}, socket) do
+    {:noreply, socket |> left |> show}
+  end
+  def handle_event("keystroke", %{"key" => "ArrowRight"}, socket) do
+    {:noreply, socket |> right |> show}
+  end
+  def handle_event("keystroke", %{"key" => "ArrowDown"}, socket) do
+    {:noreply, socket |> down |> show}
+  end
+  def handle_event("keystroke", _, socket) do
+    {:noreply, socket |> show}
   end
 
   defp rotate(%{assigns: %{tetro: tetro}}=socket) do
@@ -87,5 +108,11 @@ defmodule TetrisWeb.GameLive do
   end
   defp down(%{assigns: %{tetro: tetro}}=socket) do
     assign(socket, tetro: Tetromino.down(tetro))
+  end
+  defp left(%{assigns: %{tetro: tetro}}=socket) do
+    assign(socket, tetro: Tetromino.left(tetro))
+  end
+  defp right(%{assigns: %{tetro: tetro}}=socket) do
+    assign(socket, tetro: Tetromino.right(tetro))
   end
 end

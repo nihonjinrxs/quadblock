@@ -15,4 +15,9 @@ defmodule Tetris.Points do
     points
     |> Enum.map(&Point.add_shape(&1, shape))
   end
+
+  def all_valid?(points) do
+    points
+    |> Enum.all?(&Point.in_bounds?/1)
+  end
 end

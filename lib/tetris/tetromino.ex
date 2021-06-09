@@ -73,4 +73,7 @@ defmodule Tetris.Tetromino do
   defp random_rotation, do: @rotations |> Enum.random
   defp rotate_90(270), do: 0
   defp rotate_90(n), do: n + 90
+
+  def maybe_move(_old_tetro, new_tetro, true=_valid), do: new_tetro
+  def maybe_move(old_tetro, _new_tetro, false=_valid), do: old_tetro
 end
