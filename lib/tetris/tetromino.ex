@@ -12,11 +12,12 @@ defmodule Tetris.Tetromino do
   def left(%{location: loc}=tetro), do: %{tetro | location: Point.left(loc)}
   def right(%{location: loc}=tetro), do: %{tetro | location: Point.right(loc)}
   def down(%{location: loc}=tetro), do: %{tetro | location: Point.down(loc)}
-  def rotate(%{rotation: rot}=tetro), do: %{tetro | rotation: rotate_degrees(rot)}
+  def rotate(%{rotation: rot}=tetro), do: %{tetro | rotation: rotate_90(rot)}
 
   def show(tetro) do
     tetro
     |> points
+    |> Points.rotate(tetro.rotation)
     |> Points.move(tetro.location)
     |> Points.add_shape(tetro.shape)
   end
@@ -70,6 +71,6 @@ defmodule Tetris.Tetromino do
 
   defp random_shape, do: @shapes |> Enum.random
   defp random_rotation, do: @rotations |> Enum.random
-  defp rotate_degrees(270), do: 0
-  defp rotate_degrees(n), do: n + 90
+  defp rotate_90(270), do: 0
+  defp rotate_90(n), do: n + 90
 end
