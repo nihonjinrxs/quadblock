@@ -5,7 +5,9 @@ defmodule TetrisWeb.GameLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    :timer.send_interval(500, :tick)
+    if connected?(socket) do
+      :timer.send_interval(500, :tick)
+    end
     {
       :ok,
       socket
@@ -51,15 +53,24 @@ defmodule TetrisWeb.GameLive do
 
   defp render_points(assigns) do
     ~L"""
-    <%= for {x, y} <- @points do %>
+    <%= for {x, y, shape} <- @points do %>
       <rect
         width="20" height="20"
         x="<%= (x - 1) * 20 %>" y="<%= (y - 1) * 20 %>"
-        style="fill:rgb(255,0,0)"
+        style="fill:<%= color(shape) %>"
       />
     <% end %>
     """
   end
+
+  defp color(:z), do: "red"
+  defp color(:l), do: "red"
+  defp color(:s), do: "dodgerblue"
+  defp color(:j), do: "dodgerblue"
+  defp color(:i), do: "white"
+  defp color(:o), do: "white"
+  defp color(:t), do: "white"
+  defp color(_), do: "saddlebrown"
 
   @impl true
   def handle_info(:tick, socket) do

@@ -18,6 +18,7 @@ defmodule Tetris.Tetromino do
     tetro
     |> points
     |> Points.move(tetro.location)
+    |> Points.add_shape(tetro.shape)
   end
 
   defp points(%{shape: :i}=_tetro) do
