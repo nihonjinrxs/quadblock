@@ -29,8 +29,19 @@ defmodule Tetris.Game do
     |> show
   end
 
-  def merge(game, _tetro) do
-    game
+  def merge(game, tetro) do
+    new_junkyard =
+      tetro
+      |> Tetromino.show()
+      |> Enum.map(fn {x, y, shape} -> {{x, y}, shape} end)
+      |> Enum.into(game.junkyard)
+
+    %{ game | junkyard: new_junkyard }
+  end
+
+  def junkyard_points(game) do
+    game.junkyard
+    |> Enum.map(fn {{x, y}, shape} -> {x, y, shape} end)
   end
 
   def move(game, move_fn) do
