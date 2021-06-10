@@ -1,0 +1,14 @@
+    <section class="phx-hero">
+      <div phx-window-keydown="keystroke">
+        <h1>Quadblock Tetris</h1>
+        <h2>Score: <%= @game.score %></h2>
+        <%= render_board(assigns) %>
+        <pre>
+          @live_action = <%= inspect @live_action %>
+          game_over = <%= inspect @game.game_over %>
+          tetro = <%= inspect @game.tetro %>
+          points = <%= inspect @game.points %>
+          junkyard = <%= inspect @game.junkyard %>
+        </pre>
+      </div>
+    </section>

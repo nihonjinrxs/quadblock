@@ -1,4 +1,4 @@
-defmodule TetrisWeb.GameLive do
+defmodule TetrisWeb.GameLive.Playing do
   use TetrisWeb, :live_view
 
   alias Tetris.Game
@@ -11,24 +11,6 @@ defmodule TetrisWeb.GameLive do
       :timer.send_interval(500, :tick)
     end
     {:ok, new_game(socket)}
-  end
-
-  @impl true
-  def render(assigns) do
-    ~L"""
-    <section class="phx-hero">
-      <div phx-window-keydown="keystroke">
-        <h1>Quadblock Tetris</h1>
-        <h2>Score: <%= @game.score %></h2>
-        <%= render_board(assigns) %>
-        <pre>
-          @tetro = <%= inspect @game.tetro %>
-          @points = <%= inspect @game.points %>
-          @junkyard = <%= inspect @game.junkyard %>
-        </pre>
-      </div>
-    </section>
-    """
   end
 
   defp render_board(assigns) do
