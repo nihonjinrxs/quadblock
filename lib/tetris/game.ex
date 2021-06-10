@@ -60,7 +60,7 @@ defmodule Tetris.Game do
     valid =
       new
       |> Tetromino.show()
-      |> Points.all_valid?()
+      |> Points.valid?(game.junkyard)
 
     {old, new, valid}
   end
