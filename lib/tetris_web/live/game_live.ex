@@ -7,9 +7,9 @@ defmodule TetrisWeb.GameLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    # if connected?(socket) do
-    #   :timer.send_interval(500, :tick)
-    # end
+    if connected?(socket) do
+      :timer.send_interval(500, :tick)
+    end
     {:ok, new_game(socket)}
   end
 
