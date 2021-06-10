@@ -3,7 +3,7 @@
         <h1>Game Over!</h1>
         <h2>Score: <%= @game.score %></h2>
       </div>
-      <%= live_component TetrisWeb.GameLive.PlayButton,
+      <%= live_component TetrisWeb.GameLive.Components.PlayButton,
           title: "Play again?",
           id: "play_again_button"
       %>

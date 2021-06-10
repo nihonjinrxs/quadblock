@@ -1,4 +1,4 @@
-defmodule TetrisWeb.GameLive.PlayButton do
+defmodule TetrisWeb.GameLive.Components.PlayButton do
   use TetrisWeb, :live_component
 
   def render(assigns) do
