@@ -19,12 +19,12 @@ defmodule TetrisWeb.GameLive do
     <section class="phx-hero">
       <div phx-window-keydown="keystroke">
         <h1>Quadblock Tetris</h1>
+        <h2>Score: <%= @game.score %></h2>
         <%= render_board(assigns) %>
         <pre>
           @tetro = <%= inspect @game.tetro %>
           @points = <%= inspect @game.points %>
           @junkyard = <%= inspect @game.junkyard %>
-          @score = <%= inspect @game.score %>
         </pre>
       </div>
     </section>

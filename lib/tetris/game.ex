@@ -21,6 +21,7 @@ defmodule Tetris.Game do
   def move_down_or_merge(game, _old, new, true=_valid)  do
     %{ game | tetro: new }
     |> show
+    |> increment_score(1)
   end
   def move_down_or_merge(game, old, _new, false=_valid) do
     game
@@ -64,4 +65,6 @@ defmodule Tetris.Game do
 
     {old, new, valid}
   end
+
+  def increment_score(game, value), do: %{ game | score: game.score + value }
 end
