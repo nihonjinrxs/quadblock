@@ -2,6 +2,9 @@
       <div>
         <h1>Welcome to Quadblock Tetris!</h1>
         <h2>Stack 'em up and clear 'em out!</h2>
-        <button phx-click="play">Play!</button>
+      <%= live_component TetrisWeb.GameLive.PlayButton,
+          title: "Play!",
+          id: "play_button"
+      %>
       </div>
     </section>

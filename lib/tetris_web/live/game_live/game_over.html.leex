@@ -3,5 +3,8 @@
         <h1>Game Over!</h1>
         <h2>Score: <%= @game.score %></h2>
       </div>
-      <button phx-click="play">Play again?</button>
+      <%= live_component TetrisWeb.GameLive.PlayButton,
+          title: "Play again?",
+          id: "play_again_button"
+      %>
     </section>
