@@ -43,9 +43,9 @@ defmodule TetrisWeb.GameLive.Playing do
   defp color(:t), do: "white"
   defp color(_), do: "saddlebrown"
 
-  def maybe_end_game(%{assigns: %{game: %{game_over: true}}}=socket) do
+  def maybe_end_game(%{assigns: %{game: %{game_over: true, score: score}}}=socket) do
     socket
-    |> push_redirect(to: "/game/over")
+    |> push_redirect(to: "/game/over?score=#{score}")
   end
   def maybe_end_game(socket), do: socket
 

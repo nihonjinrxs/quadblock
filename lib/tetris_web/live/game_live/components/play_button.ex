@@ -11,5 +11,6 @@ defmodule TetrisWeb.GameLive.Components.PlayButton do
 
   def handle_event("play", _, socket), do: {:noreply, play(socket)}
 
-  defp play(socket), do: push_redirect(socket, to: "/game/playing")
+  defp play(%{ assigns: %{ play_fn: play_fn }}=socket), do: play_fn.(socket)
+  defp play(socket), do: socket |> push_redirect(to: "/game/playing")
 end
